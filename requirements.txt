@@ -1,1 +1,2 @@
 Telethon
+python-telegram-bot

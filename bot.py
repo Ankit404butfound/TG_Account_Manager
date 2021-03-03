@@ -31,10 +31,15 @@ async def evt(event):
     print(chatid)
     if "hi" == event.raw_text.lower() and chatid != 561489747:
         await event.reply('Hello!')
+ 
+def start(bot,update):
+    update.message.reply_text("Hi")
         
 def run():
     updater = Updater(TOKEN)
     updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler('start',start))
     updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
     updater.idle()
         

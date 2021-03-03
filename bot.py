@@ -34,21 +34,20 @@ async def evt(event):
  
 def start(bot,update):
     update.message.reply_text("Hi")
+    update.message.reply_text('None')
         
-def run():
-    updater = Updater(TOKEN)
-    updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler('start',start))
-    updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
-    updater.idle()
     
 def clnt():
     client.start()
     client.run_until_disconnected()
 
 threading.Thread(target=clnt).start()
-run()
+updater = Updater(TOKEN)
+updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)
+dp = updater.dispatcher
+dp.add_handler(CommandHandler('start',start))
+updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
+updater.idle()
 
 
        

@@ -4,6 +4,8 @@ import os
 from telethon.sessions import StringSession
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import threading
+import requests
+from bs4 import BeautifulSoup as bs4
 
 name = "Name"
 api_id = os.environ.get("API_ID")
@@ -31,6 +33,18 @@ async def evt(event):
     print(chatid)
     if "hi" == event.raw_text.lower() and chatid != 561489747:
         await event.reply('Hello!')
+    
+    #update.message.reply_text(fact)
+    if event.raw_text.lower() == "facts":
+        try:
+            data = requests.get("https://www.generatormix.com/random-facts-generator").content
+            soup = bs4(data)
+            fact = soup.find("blockquote",attrs = {'class':"text-left"})
+     # print((fact.text))
+            await event.reply(fact.text)
+        except Exception as e:
+            await event.reply('Some error occurred')
+
  
 def start(bot,update):
     update.message.reply_text("Hi")

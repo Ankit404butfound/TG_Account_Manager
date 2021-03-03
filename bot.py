@@ -35,7 +35,7 @@ async def evt(event):
         await event.reply('Hello!')
     
     #update.message.reply_text(fact)
-    if event.raw_text.lower() == "facts":
+    if event.raw_text.lower() == "/rajma_eak_fact_batao":
         try:
             data = requests.get("https://www.generatormix.com/random-facts-generator").content
             soup = bs4(data)

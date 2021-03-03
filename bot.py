@@ -42,10 +42,13 @@ def run():
     dp.add_handler(CommandHandler('start',start))
     updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
     updater.idle()
-        
-threading.Thread(target=run).strat()
-client.start()
-client.run_until_disconnected()
+    
+def clnt():
+    client.start()
+    client.run_until_disconnected()
+
+threading.Thread(target=clnt).start()
+run()
 
 
        

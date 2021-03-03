@@ -2,11 +2,15 @@ from telethon import TelegramClient
 from telethon import TelegramClient, events, utils
 import os
 from telethon.sessions import StringSession
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import threading
 
 name = "Name"
 api_id = os.environ.get("API_ID")
 api_hash = os.environ.get("API_HASH")
 str_sess = os.environ.get("SESSION")
+TOKEN = os.environ.get("TOKEN")
+PORT = int(os.environ.get('PORT', 5000))
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 
@@ -27,7 +31,14 @@ async def evt(event):
     print(chatid)
     if "hi" == event.raw_text.lower() and chatid != 561489747:
         await event.reply('Hello!')
-
+        
+def run():
+    updater = Updater(TOKEN)
+    updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)
+    updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
+    updater.idle()
+        
+threading.Thread(target=run).strat()
 client.start()
 client.run_until_disconnected()
 

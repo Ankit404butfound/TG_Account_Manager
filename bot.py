@@ -37,11 +37,9 @@ def start(bot,update):
     update.message.reply_text('None')
         
     
-def clnt():
-    client.start()
-    client.run_until_disconnected()
+client.start()
+client.run_until_disconnected()
 
-clnt()
 # threading.Thread(target=clnt).start()
 # updater = Updater(TOKEN)
 # updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)

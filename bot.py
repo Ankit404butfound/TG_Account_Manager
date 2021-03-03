@@ -10,7 +10,6 @@ str_sess = os.environ.get("SESSION")
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 
-TelegramClient(StringSession()
 
 async def main():
     # Now you can use all client methods listed below, like for example...

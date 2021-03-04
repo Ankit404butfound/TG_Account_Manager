@@ -31,7 +31,7 @@ async def evt(event):
     print(event.raw_text)
     chatid = event.sender_id
     print(chatid)
-    if "hi" == event.raw_text.lower() and chatid != 561489747:
+    if "hi ankit" == event.raw_text.lower() and chatid != 561489747:
         await event.reply('Hello!')
     
     #update.message.reply_text(fact)

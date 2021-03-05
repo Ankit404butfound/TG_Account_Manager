@@ -86,7 +86,7 @@ async def evt(event):
             await event.reply('Some error occurred')
     if event.raw_text.lower() == ".hi" and chatid == 561489747:
         for i in range(20):
-            event.edit(annimate[i%2])
+            await event.edit(annimate[i%2])
             time.sleep(0.1)
 
  

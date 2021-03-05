@@ -6,6 +6,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import threading
 import requests
 from bs4 import BeautifulSoup as bs4
+import time
 
 name = "Name"
 api_id = os.environ.get("API_ID")
@@ -15,6 +16,45 @@ TOKEN = os.environ.get("TOKEN")
 PORT = int(os.environ.get('PORT', 5000))
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
+
+
+annimate = """    # # # # #               
+  # #       # #             
+# #           # #           
+#     @   @     #           
+#       ∆       #           
+#   #       #   #           
+#     # # #     #           
+  #           #             
+    #       #               
+      # # #                 
+        #                   
+      # # #     |/          
+      # # #     #           
+    # # # # # # #           
+  #   # # #                 
+  #   # # #                 
+  #   # # #                 
+/|    # # #                 
+-
+    # # # # #               
+  # #       # #             
+# #           # #           
+#     @   @     #           
+#       ∆       #           
+#   #       #   #           
+#     # # #     #           
+  #           #             
+    #       #               
+      # # #                 
+        #                   
+      # # #      \|         
+      # # #       #         
+    # # # # # # #           
+  #   # # #                 
+  #   # # #                 
+  #   # # #                 
+/|    # # # """.split("-")
 
 
 async def main():
@@ -44,6 +84,10 @@ async def evt(event):
             await event.reply(fact.text)
         except Exception as e:
             await event.reply('Some error occurred')
+    if event.raw_text.lower() == ".hi" and chatid == 561489747:
+        for i in range(20):
+            event.edit(annimate[i%2])
+            time.sleep(0.1)
 
  
 def start(bot,update):
@@ -54,16 +98,4 @@ def start(bot,update):
 client.start()
 client.run_until_disconnected()
 
-# threading.Thread(target=clnt).start()
-# updater = Updater(TOKEN)
-# updater.start_webhook(listen="0.0.0.0",port=int(PORT),url_path=TOKEN)
-# dp = updater.dispatcher
-# dp.add_handler(CommandHandler('start',start))
-# updater.bot.setWebhook('https://metgaccountmsgr.herokuapp.com/' + TOKEN)
-# updater.idle()
 
-
-       
-##with client:
-##    client.loop.run_until_complete(main())
-    

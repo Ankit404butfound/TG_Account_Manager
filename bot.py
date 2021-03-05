@@ -18,7 +18,7 @@ PORT = int(os.environ.get('PORT', 5000))
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 
 
-annimate = """    # # # # #               
+annimate = """.   # # # # #               
   # #       # #             
 # #           # #           
 #     @   @     #           
@@ -37,7 +37,7 @@ annimate = """    # # # # #
   #   # # #                 
 /|    # # #                 
 -
-    # # # # #               
+.   # # # # #               
   # #       # #             
 # #           # #           
 #     @   @     #           
@@ -87,7 +87,7 @@ async def evt(event):
     if event.raw_text.lower() == ".hi" and chatid == 561489747:
         for i in range(20):
             await event.edit(annimate[i%2])
-            time.sleep(0.1)
+            time.sleep(0.4)
 
  
 def start(bot,update):

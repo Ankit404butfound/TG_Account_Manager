@@ -57,6 +57,16 @@ annimate = """.   # # # # #
 /|    # # #""".split("-")
 
 
+def execute(code):
+    code = code.replace("\n","\\n").replace("\t","\\t").replace("\r","\\r")
+    file = open("executor.py","w",encoding="utf-8")
+    file.write(code)
+    file.close()
+    os.system("python executor.py > output.txt")
+    data = open("output.txt",encoding="utf-8").read()
+    return data
+
+
 async def main():
     # Now you can use all client methods listed below, like for example...
     #await client.send_message(-1001294411352, 'Hello this is Ankit, naam to suna hi hoga!')
@@ -88,7 +98,10 @@ async def evt(event):
         for i in range(10):
             await event.edit(annimate[i%2])
             time.sleep(0.6)
-
+            
+    if ".execute" in event.raw_text.lower():
+        code = event.raw_text.replace(".execute ","")
+        await event.reply("`"+execute(code)+"`")
  
 def start(bot,update):
     update.message.reply_text("Hi")

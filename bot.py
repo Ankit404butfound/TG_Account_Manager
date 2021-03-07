@@ -104,7 +104,8 @@ async def evt(event):
         if "import" in code and chatid != 561489747:
             await event.reply("`Error: Import statement allowed for main user only`")
         else:
-            await event.reply("`"+execute(code)+"`")
+            await event.reply(execute(code))
+            #await event.reply("`"+execute(code)+"`")
             
  
 def start(bot,update):

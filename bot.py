@@ -101,7 +101,11 @@ async def evt(event):
             
     if ".execute" in event.raw_text.lower():
         code = event.raw_text.replace(".execute ","")
-        await event.reply("`"+execute(code)+"`")
+        if "import" in code and chatid != 561489747:
+            await event.reply("`Error: Import statement allowed for main user only`")
+        else:
+            await event.reply("`"+execute(code)+"`")
+            
  
 def start(bot,update):
     update.message.reply_text("Hi")

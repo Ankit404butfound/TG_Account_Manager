@@ -58,7 +58,7 @@ annimate = """.   # # # # #
 
 
 def execute(code):
-    code = code.replace("\n","\\n").replace("\t","\\t").replace("\r","\\r")
+    #code = code.replace("\n","\\n").replace("\t","\\t").replace("\r","\\r")
     file = open("executor.py","w",encoding="utf-8")
     file.write(code)
     file.close()

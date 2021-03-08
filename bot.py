@@ -68,8 +68,27 @@ def execute(code):
         return data if len(data) <= 4090 else "Output too big, returning first 4000 characters\n"+data[:4000]
     else:
         return "No output statement provided"
+      
 
+def searchonyt(topic):
+    """Will play video on following topic, takes about 10 to 15 seconds to load"""
+    url = 'https://www.youtube.com/results?q=' + topic
+    count = 0
+    cont = requests.get(url)
+    data = cont.content
+    data = str(data)
+    lst = data.split('"')
+    for i in lst:
+        count+=1
+        if i == 'WEB_PAGE_TYPE_WATCH':
+            break
+    if lst[count-5] == "/results":
+        return "No video found."
+    
+    #print("Videos found, opening most recent video")
+    return "https://www.youtube.com"+lst[count-5]
 
+      
 async def main():
     # Now you can use all client methods listed below, like for example...
     #await client.send_message(-1001294411352, 'Hello this is Ankit, naam to suna hi hoga!')
@@ -109,6 +128,11 @@ async def evt(event):
         else:
             #await event.reply(execute(code))
             await event.reply("`"+execute(code)+"`")
+    
+    if ".yt" in event.raw_text.lower():
+        topic = event.raw_text.replace(".yt ","")
+        await event.reply("`"+searchonyt(topic)+"`")
+        
             
  
 def start(bot,update):

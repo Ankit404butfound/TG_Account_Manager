@@ -131,7 +131,7 @@ async def evt(event):
     
     if ".yt" in event.raw_text.lower():
         topic = event.raw_text.replace(".yt ","")
-        await event.reply("`"+searchonyt(topic)+"`")
+        await event.reply("Found this video: "+searchonyt(topic))
         
             
  

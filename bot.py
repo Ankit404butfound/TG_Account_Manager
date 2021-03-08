@@ -64,7 +64,10 @@ def execute(code):
     file.close()
     os.system("python executor.py > output.txt")
     data = open("output.txt",encoding="utf-8").read()
-    return data if len(data) <= 4090 else "Output too big, returning first 4000 characters\n"+data[:4000]
+    if data != "":
+        return data if len(data) <= 4090 else "Output too big, returning first 4000 characters\n"+data[:4000]
+    else:
+        return "No output statement provided"
 
 
 async def main():

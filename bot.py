@@ -22,15 +22,15 @@ annimate = """.   # # # # #
   # #       # #             
 # #           # #           
 #     @   @     #           
-#        ∆         #           
-#   #       #    #           
+#        ∆      #           
+#   #       #   #           
 #     # # #    #           
-  #            #             
+  #           #             
     #       #               
       # # #                 
-         #                   
-      # # #       |/        
-      # # #       #         
+       # #                   
+      # # #        |/        
+      # # #        #         
     # # # # # # #           
   #   # # #                 
   #   # # #                 
@@ -41,13 +41,13 @@ annimate = """.   # # # # #
   # #       # #             
 # #           # #           
 #     @   @     #           
-#        ∆         #           
-#   #       #    #           
-#     # # #    #           
-  #            #             
+#        ∆      #           
+#   #       #   #           
+#     # # #     #           
+  #           #             
     #       #               
       # # #                 
-         #                   
+       # #                   
       # # #      \|         
       # # #       #         
     # # # # # # #           
@@ -59,12 +59,12 @@ annimate = """.   # # # # #
 
 def execute(code):
     #code = code.replace("\n","\\n").replace("\t","\\t").replace("\r","\\r")
-    file = open("executor.py","w",encoding="utf-8")
+    file = open("agent.py","w",encoding="utf-8")
     file.write(code)
     file.close()
     os.system("python executor.py > output.txt")
     data = open("output.txt",encoding="utf-8").read()
-    return data
+    return data if len(data) <= 4090 else "Output too big, returning first 4000 characters\n"+data[:4000]
 
 
 async def main():
@@ -96,7 +96,7 @@ async def evt(event):
             await event.reply('Some error occurred')
     if event.raw_text.lower() == ".hi" and chatid == 561489747:
         for i in range(10):
-            await event.edit(annimate[i%2])
+            await event.edit("`"+annimate[i%2]+"`")
             time.sleep(0.6)
             
     if ".execute" in event.raw_text.lower():

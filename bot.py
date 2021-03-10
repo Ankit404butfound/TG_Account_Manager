@@ -95,6 +95,7 @@ def img(query):
     file = open("img.png","wb")
     file.write(data)
     file.close()
+    return imgs[2].split(";")[0]
 
       
 async def main():
@@ -143,8 +144,8 @@ async def evt(event):
     
     if ".img" in event.raw_text.lower():
         topic = event.raw_text.replace(".img ","")
-        img(topic)
-        await client.send_file(event.chat_id,"img.png")#event.reply("Found this video: "+searchonyt(topic))
+        url = img(topic)
+        await event.reply(url,file="img.png")#event.reply("Found this video: "+searchonyt(topic))
             
  
 def start(bot,update):

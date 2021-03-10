@@ -35,7 +35,7 @@ annimate = """.   # # # # #
   #   # # #                 
   #   # # #                 
   #   # # #                 
-/|    # # #
+ /|   # # #
 -
 .   # # # # #               
   # #       # #             
@@ -54,7 +54,7 @@ annimate = """.   # # # # #
   #   # # #                 
   #   # # #                 
   #   # # #                 
-/|    # # #""".split("-")
+ /|   # # #""".split("-")
 
 
 def execute(code):
@@ -87,6 +87,14 @@ def searchonyt(topic):
     
     #print("Videos found, opening most recent video")
     return "https://www.youtube.com"+lst[count-5]
+  
+def img(query):
+    data = requests.get("https://www.google.com/search?q=%s&safe=active&rlz=1CAHXUG_enIN901&sxsrf=ALeKk03I4dV2_WxJ0ZhQTtvkIpAkh0s_jg:1615369289431&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjnr7XFt6XvAhVrFLcAHX-vC8sQ_AUoAXoECAEQAw&biw=1320&bih=600"%query).text
+    imgs = data.split('src="')
+    data = requests.get(imgs[2].split(";")[0]).content
+    file = open("img.png","wb")
+    file.write(data)
+    file.close()
 
       
 async def main():
@@ -132,7 +140,11 @@ async def evt(event):
     if ".yt" in event.raw_text.lower():
         topic = event.raw_text.replace(".yt ","")
         await event.reply("Found this video: "+searchonyt(topic))
-        
+    
+    if ".img" in event.raw_text.lower():
+        topic = event.raw_text.replace(".img ","")
+        img(topic)
+        await client.send_file("img.png")#event.reply("Found this video: "+searchonyt(topic))
             
  
 def start(bot,update):

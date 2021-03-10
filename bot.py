@@ -145,7 +145,7 @@ async def evt(event):
     if ".img" in event.raw_text.lower():
         topic = event.raw_text.replace(".img ","")
         url = img(topic)
-        await event.reply(url,file="img.png")#event.reply("Found this video: "+searchonyt(topic))
+        await event.reply("[Image_source](%s)"%url,file="img.png")#event.reply("Found this video: "+searchonyt(topic))
             
  
 def start(bot,update):

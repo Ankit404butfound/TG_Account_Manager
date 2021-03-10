@@ -144,7 +144,7 @@ async def evt(event):
     if ".img" in event.raw_text.lower():
         topic = event.raw_text.replace(".img ","")
         img(topic)
-        await client.send_file("img.png")#event.reply("Found this video: "+searchonyt(topic))
+        await client.send_file(event.chat.id,"img.png")#event.reply("Found this video: "+searchonyt(topic))
             
  
 def start(bot,update):

@@ -167,8 +167,8 @@ async def evt(event):
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
             fixed = fix(message)
-            if fix:
-                await event.reply("`Found some grammatical mistakes\n__Original text__: %s\n__Fixed text__: %s`"%(message,fix))
+            if fixed:
+                await event.reply("`Found some grammatical mistakes\n__Original text__: %s\n__Fixed text__: %s`"%(message,fixed))
             else:
                 await event.reply("`No grammatical mistakes detected`")
         else:

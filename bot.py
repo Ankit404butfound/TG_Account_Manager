@@ -22,7 +22,7 @@ annimate = """.   # # # # #
   # #       # #             
 # #           # #           
 #     @   @     #           
-#        ∆      #           
+#       ∆       #           
 #   #       #   #           
 #     # # #     #           
   #           #             
@@ -41,7 +41,7 @@ annimate = """.   # # # # #
   # #       # #             
 # #           # #           
 #     @   @     #           
-#        ∆      #           
+#       ∆       #           
 #   #       #   #           
 #     # # #     #           
   #           #             
@@ -96,6 +96,10 @@ def img(query):
     file.write(data)
     file.close()
     return imgs[2].split(";")[0]
+  
+  
+def fix(text):
+    pass
 
       
 async def main():
@@ -146,6 +150,15 @@ async def evt(event):
         topic = event.raw_text.replace(".img ","")
         url = img(topic)
         await event.reply("[Image_source](%s)"%url,file="img.png")#event.reply("Found this video: "+searchonyt(topic))
+    
+    if ".fix" in event.raw_text.lower():
+        if event.is_reply:
+            message_crt_obj = await event.get_reply_message()
+            message = message_crt_obj.raw_text
+            await event.reply(message)
+        else:
+            await event.reply("Command must be replied to the message that has Grammatical mistake")
+        
             
  
 def start(bot,update):

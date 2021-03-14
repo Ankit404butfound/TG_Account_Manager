@@ -98,18 +98,29 @@ def img(query):
     return imgs[2].split(";")[0]
   
   
-def fix(text):
-    pass
+def fix(org_text):
+    data = requests.get("http://services.gingersoftware.com/Ginger/correct/json/GingerTheText?lang=US&clientVersion=2.0&apiKey=6ae0c3a0-afdc-4532-a810-82ded0054236&text="+org_text).json()
+    suggested_text = org_text
+    lst = data["LightGingerTheTextResult"]
+    fixed_gap = 0
+    if lst:
+        for data in lst:
+            try:
+                From = data["From"]+fixed_gap
+                To = data["To"]+1+fixed_gap
+                suggested_word = (data["Suggestions"][0]["Text"])
+                suggested_text = suggested_text[:From]+suggested_word+suggested_text[To:]
+                #print(suggested_text)
+                fixed_gap = len(suggested_text)-len(org_text)
 
-      
-async def main():
-    # Now you can use all client methods listed below, like for example...
-    #await client.send_message(-1001294411352, 'Hello this is Ankit, naam to suna hi hoga!')
-    async for message in client.iter_messages("",1):
-        try:
-            print(message.id, message.text)
-        except:
-            pass
+            except Exception as e:
+                print(e)
+        return suggested_text
+
+    else:
+        print("No error found")
+        return False
+  
 
 @client.on(events.NewMessage)
 async def evt(event):
@@ -155,15 +166,11 @@ async def evt(event):
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
-            await event.reply(message)
+            fix = fix(message)
+            if fix:
+                await event.reply("`Found some grammatical mistakes\n__Original text__: %s\n__Fixed text__: %s`"%(message,fix))
         else:
             await event.reply("Command must be replied to the message that has Grammatical mistake")
-        
-            
- 
-def start(bot,update):
-    update.message.reply_text("Hi")
-    update.message.reply_text('None')
         
     
 client.start()

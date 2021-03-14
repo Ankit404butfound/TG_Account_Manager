@@ -119,7 +119,7 @@ def fix(org_text):
 
     else:
         print("No error found")
-        return False
+        return None
   
 
 @client.on(events.NewMessage)
@@ -166,9 +166,11 @@ async def evt(event):
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
-            fix = fix(message)
+            fixed = fix(message)
             if fix:
                 await event.reply("`Found some grammatical mistakes\n__Original text__: %s\n__Fixed text__: %s`"%(message,fix))
+            else:
+                await event.reply("`No grammatical mistakes detected`")
         else:
             await event.reply("Command must be replied to the message that has Grammatical mistake")
         

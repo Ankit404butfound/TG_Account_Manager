@@ -178,7 +178,7 @@ async def evt(event):
             await event.reply("Command must be replied to the message that has Grammatical mistake")
     
     if event.is_private or ".ankit" in event.raw_text.lower():
-        if afk:
+        if afk and chatid != 561489747:
             try:
                 rep = chat_data[event.raw_text.lower()]
                 print(rep)

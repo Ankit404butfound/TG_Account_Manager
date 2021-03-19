@@ -183,8 +183,8 @@ async def evt(event):
                 rep = chat_data[message]
                 print(rep)
                 await event.reply(rep[0])
-            except:
-                await event.reply("Hmm")
+            except Exception as e:
+                await event.reply(str(e))
 
     if ".afk" in event.raw_text.lower():
         code = event.raw_text.replace(".afk ","")

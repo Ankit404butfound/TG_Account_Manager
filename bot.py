@@ -14,8 +14,10 @@ api_hash = os.environ.get("API_HASH")
 str_sess = os.environ.get("SESSION")
 TOKEN = os.environ.get("TOKEN")
 PORT = int(os.environ.get('PORT', 5000))
+chat_data = eval(requests.get(os.environ.get("URL")).text)
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
+afk = True
 
 
 annimate = """.   # # # # #               
@@ -124,6 +126,7 @@ def fix(org_text):
 
 @client.on(events.NewMessage)
 async def evt(event):
+    global afk
     print(event.raw_text)
     chatid = event.sender_id
     print(chatid)
@@ -173,7 +176,27 @@ async def evt(event):
                 await event.reply("`No grammatical mistakes detected`")
         else:
             await event.reply("Command must be replied to the message that has Grammatical mistake")
-        
+    
+    if event.is_private or ".ankit" in event.raw_text.lower():
+        if afk:
+            try:
+                rep = chat_data[message]
+                print(rep)
+                await event.reply(rep[0])
+            except:
+                await event.reply("Hmm")
+
+    if ".afk" in event.raw_text.lower():
+        code = event.raw_text.replace(".afk ","")
+        if chatid == 561489747:
+            afk = True
+            await event.reply("`Ankit is now AFK`")
+            
+    if ".!afk" in event.raw_text.lower():
+        code = event.raw_text.replace(".!afk ","")
+        if chatid == 561489747:
+            afk = False
+            await event.reply("`Ankit is no longer AFK`")
     
 client.start()
 client.run_until_disconnected()

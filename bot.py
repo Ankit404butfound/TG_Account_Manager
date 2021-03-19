@@ -180,7 +180,7 @@ async def evt(event):
     if event.is_private or ".ankit" in event.raw_text.lower():
         if afk:
             try:
-                rep = chat_data[message]
+                rep = chat_data[event.raw_text.lower()]
                 print(rep)
                 await event.reply(rep[0])
             except Exception as e:

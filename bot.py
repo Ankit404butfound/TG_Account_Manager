@@ -184,7 +184,7 @@ async def evt(event):
                 print(rep)
                 await event.reply(rep[0])
             except Exception as e:
-                await event.reply(str(e))
+                await event.reply("Hmm")
 
     if ".afk" in event.raw_text.lower():
         code = event.raw_text.replace(".afk ","")

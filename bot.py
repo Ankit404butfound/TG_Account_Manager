@@ -19,6 +19,59 @@ chat_data = eval(requests.get(os.environ.get("URL")).text)
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 afk = True
 
+####
+chat_data.pop("")
+chat_data.pop("i")
+chat_data.pop("that day")
+chat_data.pop("k")
+chat_data["kaise ho"] = ["Theek hun"]
+arr = [i.replace("?","").replace(".","").replace(",","").replace("!","").replace("/","") for i in chat_data.keys()]
+not_known_reply = []
+
+def sum_of_char(string):
+    str_sum = 0
+    for char in string:
+        str_sum = str_sum + ord(char)
+    return str_sum
+  
+
+def near_word(word):
+    inp = word
+    inp_sum = sum_of_char(inp)
+    near_wrd = ""
+    diff = abs(sum_of_char(arr[0]) - inp_sum)
+    old_diff = 0
+
+    if word in arr:
+        return word
+
+    
+    for i in arr:
+        if len(inp) == len(i) and inp[0] == i[0] or abs(len(inp) - len(i)) <= 5:
+            avl_wrd_sum = sum_of_char(i)
+            diff = abs(avl_wrd_sum - inp_sum)
+            if diff == 0:
+                near_wrd = i
+                break
+
+            if diff < old_diff:
+                near_wrd = i
+            
+                old_diff = diff
+        
+    return near_wrd
+  
+def reply(string):
+    if near_word(string) != "":
+        return chat_near_word(string)]
+    else:
+        not_known_reply.append(string)
+        if len(not_known_reply) >= 5:
+            return random.choice(not_known_reply)
+        else:
+            return "hmm"
+####
+
 
 annimate = """.   # # # # #               
   # #       # #             
@@ -182,9 +235,9 @@ async def evt(event):
             try:
                 rep = chat_data[event.raw_text.lower()]
                 print(rep)
-                await event.reply(rep[0])
+                await event.reply(reply(rep))
             except Exception as e:
-                await event.reply("Hmm")
+                await event.reply(str(e))
 
     if ".afk" in event.raw_text.lower():
         code = event.raw_text.replace(".afk ","")

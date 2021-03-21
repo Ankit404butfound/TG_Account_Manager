@@ -63,7 +63,7 @@ def near_word(word):
   
 def reply(string):
     if near_word(string) != "":
-        return chat_near_word(string)]
+        return chat_data[near_word(string)]
     else:
         not_known_reply.append(string)
         if len(not_known_reply) >= 5:

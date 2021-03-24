@@ -17,7 +17,7 @@ PORT = int(os.environ.get('PORT', 5000))
 chat_data = eval(requests.get(os.environ.get("URL")).text)
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
-afk = True
+afk = False
 
 ####
 chat_data.pop("")

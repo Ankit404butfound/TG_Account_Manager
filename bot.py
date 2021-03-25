@@ -30,6 +30,7 @@ not_known_reply = []
 
 def sum_of_char(string):
     str_sum = 0
+    print(string)
     for char in string:
         str_sum = str_sum + ord(char)
     return str_sum

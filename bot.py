@@ -2,7 +2,6 @@ from telethon import TelegramClient
 from telethon import TelegramClient, events, utils
 import os
 from telethon.sessions import StringSession
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import threading
 import requests
 from bs4 import BeautifulSoup as bs4

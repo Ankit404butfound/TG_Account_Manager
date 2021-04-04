@@ -6,6 +6,7 @@ import threading
 import requests
 from bs4 import BeautifulSoup as bs4
 import time
+from pytube import YouTube
 
 name = "Name"
 api_id = os.environ.get("API_ID")
@@ -211,7 +212,7 @@ async def evt(event):
     
     if ".yt" in event.raw_text.lower():
         topic = event.raw_text.replace(".yt ","")
-        await event.reply("Found this video: "+searchonyt(topic))
+        await event.reply(searchonyt(topic))
     
     if ".img" in event.raw_text.lower():
         topic = event.raw_text.replace(".img ","")
@@ -250,6 +251,20 @@ async def evt(event):
         if chatid == 561489747:
             afk = False
             await event.reply("`Ankit is no longer AFK`")
+            
+    if ".download" in event.raw_text        
+        if event.is_reply:
+            message_crt_obj = await event.get_reply_message()
+            message = message_crt_obj.raw_text
+            await YouTube(message).streams.first().download(r'yt')
+            await event.reply(file = "yt/"+os.listdir("yt")[0])
+            os.remove("yt/"+os.listdir("yt")[0])
+            
+        else:
+            message = event.raw_text
+            await YouTube(message).streams.first().download(r'yt')
+            await event.reply(file = "yt/"+os.listdir("yt")[0])
+            os.remove("yt/"+os.listdir("yt")[0])
     
 client.start()
 client.run_until_disconnected()

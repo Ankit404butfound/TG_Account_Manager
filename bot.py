@@ -260,17 +260,18 @@ async def evt(event):
             try:
                 path = YouTube(message).streams.first().download(r'yt')
                 await outmess.edit("`Sending video...`")
-                await outmess.reply(file = path)
+                await outmess.edit(file = path)
                 os.remove(path)
             except:
                 await outmess.edit("`Error fetching video...`")
             
         else:
-            message = event.raw_text
+            message = event.raw_text.replace(".download ","")
+            vid = searchonyt(topic)
             try:
-                path = YouTube(message).streams.first().download(r'yt')
-                await event.edit("`Sending video...`")
-                await event.reply(file = path)
+                path = YouTube(vid).streams.first().download(r'yt')
+                await outmess.edit("`Sending video...`")
+                await outmess.edit(file = path)
                 os.remove(path)
             except:
                 await event.edit("`Error fetching video...`")

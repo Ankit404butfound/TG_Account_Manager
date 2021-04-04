@@ -262,8 +262,8 @@ async def evt(event):
                 await outmess.edit("`Sending video...`")
                 await outmess.edit(file = path)
                 os.remove(path)
-            except:
-                await outmess.edit("`Error fetching video...`")
+            except Exception as e:
+                await outmess.edit(f"`Error fetching video...{e}`")
             
         else:
             message = event.raw_text.replace(".download ","")

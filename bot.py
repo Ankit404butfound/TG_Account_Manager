@@ -252,7 +252,7 @@ async def evt(event):
             afk = False
             await event.reply("`Ankit is no longer AFK`")
             
-    if ".download" in event.raw_text        
+    if ".download" in event.raw_text: 
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text

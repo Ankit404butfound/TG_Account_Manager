@@ -257,13 +257,13 @@ async def evt(event):
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
-            try:
-                path = YouTube(message).streams.first().download(r'yt')
-                await outmess.edit("`Sending video...`")
-                await outmess.edit(file = path)
-                os.remove(path)
-            except Exception as e:
-                await outmess.edit(f"`Error fetching video...{e}`")
+           # try:
+            path = YouTube(message).streams.first().download(r'yt')
+            await outmess.edit("`Sending video...`")
+            await outmess.edit(file = path)
+            os.remove(path)
+#             except Exception as e:
+#                 await outmess.edit(f"`Error fetching video...{e}`")
             
         else:
             message = event.raw_text.replace(".download ","")

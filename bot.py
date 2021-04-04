@@ -256,15 +256,15 @@ async def evt(event):
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
-            await YouTube(message).streams.first().download(r'yt')
-            await event.reply(file = "yt/"+os.listdir("yt")[0])
-            os.remove("yt/"+os.listdir("yt")[0])
+            path = YouTube(message).streams.first().download(r'yt')
+            await event.reply(file = path)
+            os.remove(path)
             
         else:
             message = event.raw_text
-            await YouTube(message).streams.first().download(r'yt')
-            await event.reply(file = "yt/"+os.listdir("yt")[0])
-            os.remove("yt/"+os.listdir("yt")[0])
+            path = YouTube(message).streams.first().download(r'yt')
+            await event.reply(file = path)
+            os.remove(path)
     
 client.start()
 client.run_until_disconnected()

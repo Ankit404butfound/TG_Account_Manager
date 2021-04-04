@@ -261,7 +261,7 @@ async def evt(event):
                 path = YouTube(message).streams.first().download(r'yt')
                 await outmess.edit("`Sending video...`")
                 await event.reply(file = path)
-                outmess.edit("`Check this video`")
+                await outmess.edit("`Check this video`")
                 os.remove(path)
             except Exception as e:
                 await outmess.edit(f"`Error fetching video...{e}`")
@@ -273,7 +273,7 @@ async def evt(event):
                 path = YouTube(vid).streams.first().download(r'yt')
                 await outmess.edit("`Sending video...`")
                 await event.reply(file = path)
-                outmess.edit("`Check this video`")
+                await outmess.edit("`Check this video`")
                 os.remove(path)
             except:
                 await event.edit("`Error fetching video...`")

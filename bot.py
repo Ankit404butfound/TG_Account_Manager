@@ -253,17 +253,17 @@ async def evt(event):
             await event.reply("`Ankit is no longer AFK`")
             
     if ".download" in event.raw_text:
-        await event.reply("`Fetching data...`")
+        outmess = await event.reply("`Fetching data...`")
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             message = message_crt_obj.raw_text
             try:
                 path = YouTube(message).streams.first().download(r'yt')
-                await event.edit("`Sending video...`")
-                await event.reply(file = path)
+                await outmess.edit("`Sending video...`")
+                await outmess.reply(file = path)
                 os.remove(path)
             except:
-                await event.edit("`Error fetching video...`")
+                await outmess.edit("`Error fetching video...`")
             
         else:
             message = event.raw_text

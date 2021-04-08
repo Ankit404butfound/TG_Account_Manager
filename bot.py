@@ -239,6 +239,8 @@ async def evt(event):
             await event.reply(reply(rep))
             #except Exception as e:
             #    await event.reply(str(e))
+        else:
+            await event.reply(reply("I am not much active on Telegram these days, consider messaging me on WhatsApp.\n`This is an automated reply, you will get same reply everytime.`"))
 
     if ".afk" in event.raw_text.lower():
         code = event.raw_text.replace(".afk ","")

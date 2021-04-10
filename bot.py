@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup as bs4
 import time
 from pytube import YouTube
+import cv2
 
 name = "Name"
 api_id = os.environ.get("API_ID")
@@ -176,6 +177,15 @@ def fix(org_text):
     else:
         print("No error found")
         return None
+    
+    
+def scan(img):
+    data = cv2.imread(img)
+    grey = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+    gray = cv2.GaussianBlur(grey, (3, 3), 2)
+    threshold = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+    threshold = cv2.fastNlMeansDenoising(threshold,20,40,10)# 11, 31, 9)
+    cv2.imwrite(img,threshold)
   
 
 @client.on(events.NewMessage)
@@ -279,6 +289,13 @@ async def evt(event):
                 os.remove(path)
             except:
                 await event.edit("`Error fetching video...`")
+
+    if ".scan" in in event.raw_text:
+        if event.is_reply:
+            message_crt_obj = await event.get_reply_message()
+            result = await message_crt_obj.download_media()
+            scan(result)
+            await event.reply(file = result)
     
 client.start()
 client.run_until_disconnected()

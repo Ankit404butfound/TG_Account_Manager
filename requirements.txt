@@ -2,4 +2,4 @@ Telethon
 requests
 beautifulsoup4
 pytube
-opencv-python
+opencv-python-headless==4.2.0.32

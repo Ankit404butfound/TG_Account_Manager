@@ -290,7 +290,7 @@ async def evt(event):
             except:
                 await event.edit("`Error fetching video...`")
 
-    if ".scan" in in event.raw_text:
+    if ".scan" in event.raw_text:
         if event.is_reply:
             message_crt_obj = await event.get_reply_message()
             result = await message_crt_obj.download_media()

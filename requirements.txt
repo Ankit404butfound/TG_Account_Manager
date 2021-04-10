@@ -2,3 +2,4 @@ Telethon
 requests
 beautifulsoup4
 pytube
+opencv-python

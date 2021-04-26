@@ -20,7 +20,7 @@ chat_data = eval(requests.get(os.environ.get("URL")).text)
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 afk = False
 
-####
+###
 chat_data.pop("")
 chat_data.pop("i")
 chat_data.pop("that day")

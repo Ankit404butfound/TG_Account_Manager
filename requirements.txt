@@ -1,4 +1,4 @@
-Telethon
+telethon
 requests
 beautifulsoup4
 pytube

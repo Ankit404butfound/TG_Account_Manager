@@ -16,19 +16,12 @@ api_hash = os.environ.get("API_HASH")
 str_sess = os.environ.get("SESSION")
 TOKEN = os.environ.get("TOKEN")
 PORT = int(os.environ.get('PORT', 5000))
-chat_data = eval(requests.get(os.environ.get("URL")).text)
 
 client = TelegramClient(StringSession(str_sess), api_id, api_hash)
 afk = False
 
 ###
-chat_data.pop("")
-chat_data.pop("i")
-chat_data.pop("that day")
-chat_data.pop("k")
-chat_data["kaise ho"] = ["Theek hun"]
-arr = [i.replace("?","").replace(".","").replace(",","").replace("!","").replace("/","") for i in chat_data.keys()]
-not_known_reply = []
+
 
 def sum_of_char(string):
     str_sum = 0
